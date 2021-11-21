@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -7,14 +7,31 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { translate } from '../../../GlobalHelpers/Lang/Lang';
+import { Grid, Typography } from '@material-ui/core';
+import BookingModal from './BookingModal';
 
 const useStyles = makeStyles({
     table: {
-        maxWidth:650
+        maxWidth:700,
+    },
+    tableCell:{
+        border: '2px solid white',
+        padding: 20
+    },
+    tableRow:{
+
+    },
+    reserved:{
+        cursor:"not-allowed",
+        background:'red'
+    },
+    free:{
+        cursor:'pointer',
+        background:'#90EE90'
     },
 });
 const BookingTable = ({ response,roomId,weekNumber }) => {
-
+    const [openModal, setOpenModal] = useState(false);
     const classes = useStyles();
     const rowsArray = [];
     const columns = [
@@ -27,13 +44,17 @@ const BookingTable = ({ response,roomId,weekNumber }) => {
         translate.sunday
     ];
 
+    const handleClick = () => {
+        setOpenModal(true);
+    };
+
     const createRow = (index) => {
         return (
-          <TableRow>
+          <TableRow key={index} className={classes.tableRow}>
         {
-         response.rooms[roomId].weeks[weekNumber].days.map(day => (
+         response.days.map(day => (
             
-            <TableCell style={{background:day.times[index].reserved?'red':'green'}}>{day.times[index].time}</TableCell>
+            <TableCell onClick={handleClick} key={`table-body-cell-${day.date}`} className={`${classes.tableCell} ${day.times[index].reserved? classes.reserved:classes.free}`} >{day.times[index].time}</TableCell>
             ))}
       </TableRow>
     )
@@ -53,10 +74,17 @@ const BookingTable = ({ response,roomId,weekNumber }) => {
     return (
         <TableContainer>
             <Table className={classes.table} aria-label="simple table">
+            <BookingModal
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+            />
                 <TableHead>
                     <TableRow>
-                        {columns.map(column => (
-                            <TableCell>{column}</TableCell>
+                        {columns.map((column,index) => (
+                            <TableCell key={`table-head-${index}`}>
+                                <Grid key={`table-head-cell${index}`}>{column}</Grid>
+                                <Typography key={`table-head-date${index}`} variant={"caption"}>{response.days[index].date}</Typography>    
+                            </TableCell>
                         ))}
                     </TableRow>
                 </TableHead>
