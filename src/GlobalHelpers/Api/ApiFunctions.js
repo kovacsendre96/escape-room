@@ -1,6 +1,6 @@
 import api from "./Api";
 
-export const getRoomData = ({id,setResponse,setLoading,roomId,weekNumber}) => {
+export const getRoomData = ({ id, setResponse, setLoading, roomId, weekNumber }) => {
     const fetchedResult = [];
     const response = api.get(`/users/${id}/rooms/${roomId}/weeks/${weekNumber}.json`).then((res) => {
         for (let key in res.data) {
@@ -14,4 +14,18 @@ export const getRoomData = ({id,setResponse,setLoading,roomId,weekNumber}) => {
     })
     return response;
 }
-    
+
+
+export const bookRoom = ({ id, roomId, weekNumber, dayNumber, timeNumber, time, reserved, setIsSentBook, isSentBook }) => {
+    api.put(`/users/${id}/rooms/${roomId}/weeks/${weekNumber}/days/${dayNumber}/times/${timeNumber}.json`, { time: time, reserved: reserved }).then((res) => {
+        if (res.status === 200) {
+            setIsSentBook(!isSentBook);
+        }
+    }
+    )
+}
+
+export const sendReservationsData = ({ name, phone, email, message, groupNumber, date, time, room, id }) => {
+    api.post(`/users/${id}/reservations/.json`, { "Név": name, "Telefonszám": phone, "Email": email, "Megjegyzés": message, "Létszám:": groupNumber, "Dátum": date, "Óra": time, "Szoba": room }).then((res) => {}
+    )
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { getRoomData } from "../../../GlobalHelpers/Api/ApiFunctions";
 import BookingTable from "./BookingTable";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
@@ -11,6 +11,7 @@ import { readRoomName, seRoomIdByRoomName } from "../../../GlobalHelpers/GlobalF
 
 
 
+export const BookingContext = createContext();
 const useStyles = makeStyles({
     weekWrapper: {
         width: 'auto',
@@ -27,25 +28,26 @@ const BookingPage = () => {
     const [response, setResponse] = useState([]);
     const [loading, setLoading] = useState(true);
     const [roomId, setRoomId] = useState(null);
-    const todaysWeekNumber = 4;
+    const [isSentBook, setIsSentBook] = useState(false);
+    const todaysWeekNumber = 5;
     const maxWeekNumber = 51;
     const [weekNumber, setWeekNumber] = useState(null);
     const classes = useStyles();
-    const {room_name} = useParams();
-
+    const { room_name } = useParams();
+    const id = '-MoUTkg1gdkGpPFivBxy';
     /*============================ USE EFFECTS /*============================*/
-    useEffect(()=>{
+    useEffect(() => {
         setWeekNumber(todaysWeekNumber);
         setRoomId(seRoomIdByRoomName(room_name));
-    },[])
-    
+    }, [])
+
     useEffect(() => {
-        if(weekNumber !== null){
-            getRoomData({ id: '-MoUTkg1gdkGpPFivBxy', setResponse: setResponse, setLoading: setLoading, roomId: roomId, weekNumber, weekNumber });
+        if (weekNumber !== null) {
+            getRoomData({ id: id, setResponse: setResponse, setLoading: setLoading, roomId: roomId, weekNumber, weekNumber });
         }
-        
-    }, [weekNumber]);
-    
+
+    }, [weekNumber,isSentBook]);
+
 
     /*============================ HANDLE FUNCTIONS /*============================*/
     const handleArrowClick = (e) => {
@@ -57,7 +59,7 @@ const BookingPage = () => {
         }
         if (e.target.id === 'arrowRight') {
             const nextNumber = weekNumber + 1;
-            if(nextNumber <= maxWeekNumber){
+            if (nextNumber <= maxWeekNumber) {
                 setWeekNumber(nextNumber)
             }
         }
@@ -76,14 +78,24 @@ const BookingPage = () => {
                     <Typography variant={"h4"}>{response.week}. {translate.week}</Typography>
                     <ArrowRightIcon id={'arrowRight'} className={classes.ArrowIcon} onClick={handleArrowClick} />
                 </Grid>
-
-                <Grid>
-                    <BookingTable
-                        response={response}
-                        roomId={roomId}
-                        weekNumber={weekNumber}
-                    />
-                </Grid>
+                <BookingContext.Provider
+                    value={{
+                        id,
+                        roomId,
+                        weekNumber,
+                        isSentBook,
+                        setIsSentBook
+                    }}
+                    
+                >
+                    <Grid>
+                        <BookingTable
+                            response={response}
+                            roomId={roomId}
+                            weekNumber={weekNumber}
+                        />
+                    </Grid>
+                </BookingContext.Provider>
 
             </Grid>
 

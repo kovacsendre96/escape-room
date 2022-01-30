@@ -17,5 +17,9 @@ export const translate =  {
             fogsagban: lang === "hu"? "Fogságban" : "Captivity",
             "szoba-2": lang === "hu"? "Szoba 2" : "Room 2",
             "szoba-3": lang === "hu"? "Szoba 3" : "Room 3",
-
+            name: lang === "hu"? "Teljes név" : "Full name",
+            email: lang === "hu"? "Email cím" : "Email",
+            phone: lang === "hu"? "Telefonszám" : "Phone number",
+            message: lang === "hu"? "Megjegyzés" : "Message",
+            groupNumber: lang === "hu"? "Létszám" : "Group number",
 }

@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import BookingForm from './BookingForm';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +43,9 @@ const useStyles = makeStyles((theme) => ({
       >
         <Fade in={openModal}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">react-transition-group animates me.</p>
+          <BookingForm 
+          handleClose={handleClose}
+          />
           </div>
         </Fade>
       </Modal>

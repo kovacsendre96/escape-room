@@ -9,28 +9,14 @@ import TableRow from '@material-ui/core/TableRow';
 import { translate } from '../../../GlobalHelpers/Lang/Lang';
 import { Grid, Typography } from '@material-ui/core';
 import BookingModal from './BookingModal';
+import CustomTableCell from './CustomTableCell';
 
 const useStyles = makeStyles({
     table: {
-        maxWidth:700,
-    },
-    tableCell:{
-        border: '2px solid white',
-        padding: 20
-    },
-    tableRow:{
-
-    },
-    reserved:{
-        cursor:"not-allowed",
-        background:'red'
-    },
-    free:{
-        cursor:'pointer',
-        background:'#90EE90'
-    },
+        maxWidth: 700,
+    }
 });
-const BookingTable = ({ response,roomId,weekNumber }) => {
+const BookingTable = ({ response,roomId }) => {
     const [openModal, setOpenModal] = useState(false);
     const classes = useStyles();
     const rowsArray = [];
@@ -44,56 +30,70 @@ const BookingTable = ({ response,roomId,weekNumber }) => {
         translate.sunday
     ];
 
-    const handleClick = () => {
-        setOpenModal(true);
-    };
+
+
+    function createData(date, dayName, dayTimes) {
+        return { date, dayName, dayTimes };
+    }
+
+    const rows = response.days.map(data =>
+        createData(
+            data.date,
+            data.day_name,
+            data.times.map(time => time)
+        )
+    )
 
     const createRow = (index) => {
         return (
-          <TableRow key={index} className={classes.tableRow}>
-        {
-         response.days.map(day => (
-            
-            <TableCell onClick={handleClick} key={`table-body-cell-${day.date}`} className={`${classes.tableCell} ${day.times[index].reserved? classes.reserved:classes.free}`} >{day.times[index].time}</TableCell>
-            ))}
-      </TableRow>
-    )
-  }
-
-  const drawRows = () =>{
-    
-    for(let i =0;i<6;i++){
-      rowsArray.push(createRow(i))
+            <TableRow key={index} className={classes.tableRow}>
+                {
+                    rows.map((day,rowIndex) => (
+                        <CustomTableCell
+                            response={day}
+                            index={index}
+                            setOpenModal={setOpenModal}
+                            rowIndex={rowIndex}
+                            key={rowIndex}
+                            roomId={roomId}
+                        />
+                    ))}
+            </TableRow>
+        );
     }
 
-  }
-  drawRows();
+    const drawRows = () => {
+        for (let i = 0; i < 6; i++) {
+            rowsArray.push(createRow(i))
+        }
+    }
+    drawRows();
     useEffect(() => {
     }, [response])
 
     return (
         <TableContainer>
             <Table className={classes.table} aria-label="simple table">
-            <BookingModal
-            openModal={openModal}
-            setOpenModal={setOpenModal}
-            />
+                <BookingModal
+                    openModal={openModal}
+                    setOpenModal={setOpenModal}
+                />
                 <TableHead>
                     <TableRow>
-                        {columns.map((column,index) => (
+                        {columns.map((column, index) => (
                             <TableCell key={`table-head-${index}`}>
                                 <Grid key={`table-head-cell${index}`}>{column}</Grid>
-                                <Typography key={`table-head-date${index}`} variant={"caption"}>{response.days[index].date}</Typography>    
+                                <Typography key={`table-head-date${index}`} variant={"caption"}>{response.days[index].date}</Typography>
                             </TableCell>
                         ))}
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                {rowsArray.map( row => row)}
+                    {rowsArray.map(row => row)}
                 </TableBody>
             </Table>
         </TableContainer>
     );
 };
 
-export default BookingTable
+export default BookingTable;
