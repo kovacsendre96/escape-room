@@ -22,4 +22,9 @@ export const translate =  {
             phone: lang === "hu"? "Telefonszám" : "Phone number",
             message: lang === "hu"? "Megjegyzés" : "Message",
             groupNumber: lang === "hu"? "Létszám" : "Group number",
+            nameIsRequired: lang === "hu"? "Név kitöltése kötelező" : "Name is required",
+            invalidEmail: lang === "hu"? "Hibás e-mail" : "Invalid  email",
+            invalidPhone: lang === "hu"? "Hibás telefonszám" : "Wrong phone number",
+            numberOfGroupIsRequired: lang === "hu"? "Létszám megadása kötelező" : "Number of group is required",
+
 }

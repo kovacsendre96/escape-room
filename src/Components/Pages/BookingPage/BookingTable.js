@@ -77,6 +77,7 @@ const BookingTable = ({ response,roomId }) => {
                 <BookingModal
                     openModal={openModal}
                     setOpenModal={setOpenModal}
+                    response={response}
                 />
                 <TableHead>
                     <TableRow>

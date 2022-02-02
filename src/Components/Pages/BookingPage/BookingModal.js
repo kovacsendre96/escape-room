@@ -4,6 +4,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import BookingForm from './BookingForm';
+import { Grid } from '@material-ui/core';
+import { clickedTimeData } from './BookingFromFunctions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,12 +22,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- const  BookingModal = ({openModal,setOpenModal})=> {
+ const  BookingModal = ({openModal,setOpenModal,response})=> {
   const classes = useStyles();
 
   const handleClose = () => {
     setOpenModal(false);
   };
+
 
   return (
  
@@ -43,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
       >
         <Fade in={openModal}>
           <div className={classes.paper}>
+        <Grid container justifyContent='center' alignItems='center'>{clickedTimeData.date}</Grid>
           <BookingForm 
           handleClose={handleClose}
           />

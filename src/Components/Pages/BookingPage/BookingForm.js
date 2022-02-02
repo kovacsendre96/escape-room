@@ -1,4 +1,4 @@
-import { Button, makeStyles, TextField } from "@material-ui/core";
+import { Button, FormHelperText, makeStyles, TextField } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import { translate } from "../../../GlobalHelpers/Lang/Lang";
 import InputLabel from '@material-ui/core/InputLabel';
@@ -57,14 +57,14 @@ const BookingForm = ({ handleClose }) => {
     const [phone, setPhone] = useState(null);
     const [message, setMessage] = useState(null);
 
-    const handleBlur = (e, changeType, setFunction) => {
+    const handleBlur = (e, changeType, setFunction) => {    
         const targetValue = e.target.value;
         setFunction(targetValue);
 
         if (changeType === INPUT_TYPE.NAME && targetValue === "") {
             setErrors({
                 ...errors,
-                [changeType]: 'Név kitöltése kötelező'
+                [changeType]: translate.nameIsRequired
             })
         } else {
             setErrors({
@@ -84,7 +84,7 @@ const BookingForm = ({ handleClose }) => {
 
                 setErrors({
                     ...errors,
-                    [changeType]: 'Hibás email'
+                    [changeType]: translate.invalidEmail
                 })
             }
         }
@@ -98,7 +98,7 @@ const BookingForm = ({ handleClose }) => {
             } else {
                 setErrors({
                     ...errors,
-                    [changeType]: 'Hibás telefonszám'
+                    [changeType]: translate.invalidPhone
                 })
             }
         }
@@ -107,7 +107,7 @@ const BookingForm = ({ handleClose }) => {
             if (targetValue === '') {
                 setErrors({
                     ...errors,
-                    [changeType]: 'Csapatszám megadása kötelező.'
+                    [changeType]: translate.numberOfGroupIsRequired
                 })
             } else {
                 setErrors({
@@ -136,10 +136,10 @@ const BookingForm = ({ handleClose }) => {
         return errors.name !== "" || errors.email !== "" || errors.phone !== "" || errors.group_number !== "";
     };
 
-    console.log(errors);
+
 
     const submitBook = (e) => {
-        if (isInvalidForm()) {
+        if (!isInvalidForm()) {
             e.preventDefault();
             const sendData = {
                 id: ctx.id,
@@ -177,7 +177,6 @@ const BookingForm = ({ handleClose }) => {
                 type="text"
                 variant="outlined"
                 className={classes.input}
-                autoComplete="new-name"
                 helperText={errors?.name}
                 required
                 inputProps={
@@ -212,35 +211,40 @@ const BookingForm = ({ handleClose }) => {
                 helperText={errors?.phone}
                 onBlur={(e) => handleBlur(e, INPUT_TYPE.PHONE, setPhone,)}
             />
-            <FormControl className={classes.formControl} key="form-control">
-                <InputLabel id="group-number" key="group-number" className={classes.selectLabel}>{translate.groupNumber}</InputLabel>
+            <FormControl required variant="outlined" className={classes.formControl} key="form-control" error={errors?.group_number !== ''}>
+                <InputLabel id="group-number" key="group-number">{translate.groupNumber}</InputLabel>
                 <Select
                     labelId="group-number"
-                    label="group-number"
+                    label={translate.groupNumber}
                     id="group-number-select"
                     key="group-number-select"
                     value={groupNumber}
                     onChange={handleSelectChange}
                     onBlur={(e) => handleBlur(e, INPUT_TYPE.GROUP_NUMBER, setGroupNumber,)}
-                    variant={"outlined"}
-                    required
-                    error={errors?.group_number !== ''}
-                    helperText={errors?.group_number}
+
                 >
                     {generateMenuItem()}
 
                 </Select>
+                <FormHelperText>{errors?.group_number} </FormHelperText>
             </FormControl>
-            <TextField
-                id="message"
-                key="message"
-                label={translate.message}
-                type="text"
-                variant="outlined"
-                className={`${classes.input} ${classes.message}`}
-                autoComplete="new-message"
-                onChange={(e) => setMessage(e.target.value)}
-            />
+
+
+            <FormControl fullWidth variant="outlined"  className={classes.input}>
+                <TextField
+                    id="message"
+                    key="message"
+                    label={translate.message}
+                    type="text"
+                    variant="outlined"
+                    className={`${classes.input} ${classes.message}`}
+                    autoComplete="new-message"
+                    onChange={(e) => setMessage(e.target.value)}
+                    multiline
+                    rows={5}
+                />
+            </FormControl>
+
             <Button disabled={isInvalidForm()} key={"button"} type={"submit"} variant="contained" color="primary" className={`${classes.button} ${classes.input}`}>
                 {translate.booking}
             </Button>

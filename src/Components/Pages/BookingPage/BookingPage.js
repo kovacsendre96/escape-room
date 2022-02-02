@@ -6,7 +6,7 @@ import { translate } from "../../../GlobalHelpers/Lang/Lang";
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { useParams } from "react-router";
-import { readRoomName, seRoomIdByRoomName } from "../../../GlobalHelpers/GlobalFunctions";
+import { getCurrentWeekNumber, readRoomName, seRoomIdByRoomName } from "../../../GlobalHelpers/GlobalFunctions";
 
 
 
@@ -29,7 +29,7 @@ const BookingPage = () => {
     const [loading, setLoading] = useState(true);
     const [roomId, setRoomId] = useState(null);
     const [isSentBook, setIsSentBook] = useState(false);
-    const todaysWeekNumber = 5;
+    const todaysWeekNumber = getCurrentWeekNumber();
     const maxWeekNumber = 51;
     const [weekNumber, setWeekNumber] = useState(null);
     const classes = useStyles();
