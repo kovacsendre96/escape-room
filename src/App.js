@@ -14,8 +14,8 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<MainPage/>} />
-        <Route path="/szobak" element={<RoomsPage/>} />
-        <Route path="/szobak/:room_name" element={<BookingPage/>} />
+        <Route path="/escape-room/szobak" element={<RoomsPage/>} />
+        <Route path="/escape-room/szobak/:room_name" element={<BookingPage/>} />
         <Route element={NotFound} />
       </Routes>
     </React.Fragment>
