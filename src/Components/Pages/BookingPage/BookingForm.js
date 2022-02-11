@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const BookingForm = ({ handleClose }) => {
+const BookingForm = ({ handleClose,roomCapacity }) => {
     const classes = useStyles();
     const ctx = useContext(BookingContext);
     const [groupNumber, setGroupNumber] = useState('');
@@ -124,7 +124,7 @@ const BookingForm = ({ handleClose }) => {
 
     const generateMenuItem = () => {
         const menuItem = [];
-        for (let i = 1; i < 6; i++) {
+        for (let i = 1; i < roomCapacity+1; i++) {
             menuItem.push(
                 <MenuItem key={i} value={i}>{i}</MenuItem>
             );
@@ -184,6 +184,7 @@ const BookingForm = ({ handleClose }) => {
                 }
                 error={Boolean(errors?.name)}
                 onBlur={(e) => handleBlur(e, INPUT_TYPE.NAME, setName,)}
+                onChange={(e) => handleBlur(e, INPUT_TYPE.NAME, setName,)}
             />
             <TextField
                 id="email"
@@ -197,6 +198,8 @@ const BookingForm = ({ handleClose }) => {
                 error={errors?.email !== ''}
                 helperText={errors?.email}
                 onBlur={(e) => handleBlur(e, INPUT_TYPE.EMAIL, setEmail,)}
+                onChange={(e) => handleBlur(e, INPUT_TYPE.EMAIL, setName,)}
+
             />
             <TextField
                 id="phone"
@@ -210,6 +213,8 @@ const BookingForm = ({ handleClose }) => {
                 error={errors?.phone !== ''}
                 helperText={errors?.phone}
                 onBlur={(e) => handleBlur(e, INPUT_TYPE.PHONE, setPhone,)}
+                onChange={(e) => handleBlur(e, INPUT_TYPE.PHONE, setName,)}
+
             />
             <FormControl required variant="outlined" className={classes.formControl} key="form-control" error={errors?.group_number !== ''}>
                 <InputLabel id="group-number" key="group-number">{translate.groupNumber}</InputLabel>
@@ -221,7 +226,6 @@ const BookingForm = ({ handleClose }) => {
                     value={groupNumber}
                     onChange={handleSelectChange}
                     onBlur={(e) => handleBlur(e, INPUT_TYPE.GROUP_NUMBER, setGroupNumber,)}
-
                 >
                     {generateMenuItem()}
 

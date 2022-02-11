@@ -6,7 +6,7 @@ export const readRoomName = (roomName) => {
 
 };
 
-export const seRoomIdByRoomName = (room_name) => {
+export const setRoomIdByRoomName = (room_name) => {
     let roomId;
     switch (room_name) {
         case 'fogsagban': roomId = '-Mp1W6hGMvV79dDM-K8U';

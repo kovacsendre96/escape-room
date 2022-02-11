@@ -1,12 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { getRoomData } from "../../../GlobalHelpers/Api/ApiFunctions";
+import { getRoomCapacity, getRoomData } from "../../../GlobalHelpers/Api/ApiFunctions";
 import BookingTable from "./BookingTable";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
 import { translate } from "../../../GlobalHelpers/Lang/Lang";
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import { useParams } from "react-router";
-import { getCurrentWeekNumber, readRoomName, seRoomIdByRoomName } from "../../../GlobalHelpers/GlobalFunctions";
+import { getCurrentWeekNumber, readRoomName, setRoomIdByRoomName } from "../../../GlobalHelpers/GlobalFunctions";
 
 
 
@@ -35,35 +35,40 @@ const BookingPage = () => {
     const classes = useStyles();
     const { room_name } = useParams();
     const id = '-MoUTkg1gdkGpPFivBxy';
+    const [roomCapacity, setRoomCapacity] = useState();
+
     /*============================ USE EFFECTS /*============================*/
     useEffect(() => {
         setWeekNumber(todaysWeekNumber);
-        setRoomId(seRoomIdByRoomName(room_name));
-    }, [])
+        setRoomId(setRoomIdByRoomName(room_name));
+    }, []);
 
     useEffect(() => {
         if (weekNumber !== null) {
             getRoomData({ id: id, setResponse: setResponse, setLoading: setLoading, roomId: roomId, weekNumber, weekNumber });
         }
 
-    }, [weekNumber,isSentBook]);
+    }, [weekNumber, isSentBook]);
 
+    useEffect(() => {
+        getRoomCapacity({ id: id, setState: setRoomCapacity, roomId: roomId });
+    }, [loading]);
 
     /*============================ HANDLE FUNCTIONS /*============================*/
-    const handleArrowClick = (e) => {
-        if (e.target.id === 'arrowLeft') {
-            const prevNumber = weekNumber - 1;
-            if (prevNumber >= todaysWeekNumber) {
-                setWeekNumber(prevNumber);
-            }
+    const handleArrowLeftClick = () => {
+        const prevNumber = weekNumber - 1;
+        if (prevNumber >= todaysWeekNumber) {
+            setWeekNumber(prevNumber);
         }
-        if (e.target.id === 'arrowRight') {
-            const nextNumber = weekNumber + 1;
-            if (nextNumber <= maxWeekNumber) {
-                setWeekNumber(nextNumber)
-            }
+    };
+
+    const handleArrowRightClick = () => {
+        const nextNumber = weekNumber + 1;
+        if (nextNumber <= maxWeekNumber) {
+            setWeekNumber(nextNumber)
         }
-    }
+    };
+
 
     /*============================ RENDER /*============================*/
     return (
@@ -74,9 +79,9 @@ const BookingPage = () => {
                 <Typography variant={"h4"}>{readRoomName(room_name)}</Typography>
 
                 <Grid container alignItems={'center'} className={classes.weekWrapper}>
-                    <ArrowLeftIcon id={'arrowLeft'} className={classes.ArrowIcon} /* style={{display: weekNumber === todaysWeekNumber ? 'none':'block'}} */ onClick={handleArrowClick} />
+                    <ArrowLeftIcon id={'arrowLeft'} className={classes.ArrowIcon} onClick={handleArrowLeftClick} />
                     <Typography variant={"h4"}>{response.week}. {translate.week}</Typography>
-                    <ArrowRightIcon id={'arrowRight'} className={classes.ArrowIcon} onClick={handleArrowClick} />
+                    <ArrowRightIcon id={'arrowRight'} className={classes.ArrowIcon} onClick={handleArrowRightClick} />
                 </Grid>
                 <BookingContext.Provider
                     value={{
@@ -86,13 +91,14 @@ const BookingPage = () => {
                         isSentBook,
                         setIsSentBook
                     }}
-                    
+
                 >
                     <Grid>
                         <BookingTable
                             response={response}
                             roomId={roomId}
                             weekNumber={weekNumber}
+                            roomCapacity={roomCapacity}
                         />
                     </Grid>
                 </BookingContext.Provider>

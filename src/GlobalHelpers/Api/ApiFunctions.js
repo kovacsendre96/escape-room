@@ -8,13 +8,19 @@ export const getRoomData = ({ id, setResponse, setLoading, roomId, weekNumber })
                 ...res.data[key],
                 id: key
             });
-        }
+        };
         setResponse(res.data);
         setLoading(false);
-    })
+    });
     return response;
-}
+};
 
+export const getRoomCapacity = ({id, setState, roomId}) => {
+    const response = api.get(`/users/${id}/rooms/${roomId}/capacity.json`).then((res) => {
+        setState(res.data);
+    });
+    return response;
+};
 
 export const bookRoom = ({ id, roomId, weekNumber, dayNumber, timeNumber, time, reserved, setIsSentBook, isSentBook }) => {
     api.put(`/users/${id}/rooms/${roomId}/weeks/${weekNumber}/days/${dayNumber}/times/${timeNumber}.json`, { time: time, reserved: reserved }).then((res) => {
@@ -22,10 +28,10 @@ export const bookRoom = ({ id, roomId, weekNumber, dayNumber, timeNumber, time, 
             setIsSentBook(!isSentBook);
         }
     }
-    )
-}
+    );
+};
 
 export const sendReservationsData = ({ name, phone, email, message, groupNumber, date, time, room, id }) => {
-    api.post(`/users/${id}/reservations/.json`, { "Név": name, "Telefonszám": phone, "Email": email, "Megjegyzés": message, "Létszám:": groupNumber, "Dátum": date, "Óra": time, "Szoba": room }).then((res) => {}
-    )
-}
+    api.post(`/users/${id}/reservations/.json`, { "Név": name, "Telefonszám": phone, "Email": email, "Megjegyzés": message, "Létszám:": groupNumber, "Dátum": date, "Óra": time, "Szoba": room }).then((res) => { }
+    );
+};

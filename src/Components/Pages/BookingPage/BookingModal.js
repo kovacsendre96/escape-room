@@ -22,37 +22,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
- const  BookingModal = ({openModal,setOpenModal,response})=> {
+const BookingModal = ({ openModal, setOpenModal, roomCapacity }) => {
   const classes = useStyles();
 
   const handleClose = () => {
     setOpenModal(false);
   };
-
-
   return (
- 
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={openModal}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={openModal}>
-          <div className={classes.paper}>
-        <Grid container justifyContent='center' alignItems='center'>{clickedTimeData.date}</Grid>
-          <BookingForm 
-          handleClose={handleClose}
+
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      className={classes.modal}
+      open={openModal}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={openModal}>
+        <div className={classes.paper}>
+          <Grid container justifyContent='center' alignItems='center'>{clickedTimeData.date}</Grid>
+          <BookingForm
+            handleClose={handleClose}
+            roomCapacity={roomCapacity}
           />
-          </div>
-        </Fade>
-      </Modal>
+        </div>
+      </Fade>
+    </Modal>
   );
 }
 export default BookingModal;

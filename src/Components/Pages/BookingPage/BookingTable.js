@@ -16,7 +16,7 @@ const useStyles = makeStyles({
         maxWidth: 700,
     }
 });
-const BookingTable = ({ response,roomId }) => {
+const BookingTable = ({ response,roomId,roomCapacity }) => {
     const [openModal, setOpenModal] = useState(false);
     const classes = useStyles();
     const rowsArray = [];
@@ -78,6 +78,7 @@ const BookingTable = ({ response,roomId }) => {
                     openModal={openModal}
                     setOpenModal={setOpenModal}
                     response={response}
+                    roomCapacity={roomCapacity}
                 />
                 <TableHead>
                     <TableRow>
