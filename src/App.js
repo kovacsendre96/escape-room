@@ -7,15 +7,16 @@ import NotFound from './Components/Pages/NotFound/NotFound';
 import RoomsPage from './Components/Pages/RoomsPage/RoomsPage';
 
 
-
+const host = window.location.host;
+console.log(host);
 function App() {
   return (
     <React.Fragment>
       <Nav />
       <Routes>
-        <Route path="/" element={<MainPage/>} />
-        <Route path="/escape-room/szobak" element={<RoomsPage/>} />
-        <Route path="/escape-room/szobak/:room_name" element={<BookingPage/>} />
+        <Route path={`${host}/`} element={<MainPage/>} />
+        <Route path={`${host}/szobak`} element={<RoomsPage/>} />
+        <Route path={`${host}/szobak/:room_name`} element={<BookingPage/>} />
         <Route element={NotFound} />
       </Routes>
     </React.Fragment>
