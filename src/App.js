@@ -16,8 +16,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/escape-room/" element={<MainPage/>} />
-        <Route path="escape-room/szobak" element={<RoomsPage/>} />
-        <Route path="escape-room/szobak/:room_name" element={<BookingPage/>} />
+        <Route path="/escape-room/szobak" element={<RoomsPage/>} />
+        <Route path="/escape-room/szobak/:room_name" element={<BookingPage/>} />
         <Route element={NotFound} />
       </Routes>
     </React.Fragment>
