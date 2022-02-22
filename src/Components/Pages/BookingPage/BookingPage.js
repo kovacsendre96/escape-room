@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { getRoomCapacity, getRoomData } from "../../../GlobalHelpers/Api/ApiFunctions";
 import BookingTable from "./BookingTable";
 import { Grid, makeStyles, Typography } from "@material-ui/core";
@@ -45,7 +45,7 @@ const BookingPage = () => {
 
     useEffect(() => {
         if (weekNumber !== null) {
-            getRoomData({ id: id, setResponse: setResponse, setLoading: setLoading, roomId: roomId, weekNumber, weekNumber });
+            getRoomData({ id: id, setResponse: setResponse, setLoading: setLoading, roomId: roomId, weekNumber: weekNumber });
         }
 
     }, [weekNumber, isSentBook]);

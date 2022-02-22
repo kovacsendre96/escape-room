@@ -23,12 +23,11 @@ const Nav = () => {
     const classes = useStyles();
     return (
         <Grid className={classes.navWrapper} container justifyContent={"space-around"} alignItems={"center"}>
-            <Grid  item><Link className={classes.linkItem} to="/">{translate.mainPage}</Link></Grid>
-            <Grid  item><Link className={classes.linkItem} to="/szobak">{translate.rooms}</Link></Grid>
-            <Grid  item> <Link className={classes.linkItem} to="/foglalas"> {translate.booking} </Link> </Grid>
-            <Grid  item> <Link className={classes.linkItem} to="/kapcsolat"> {translate.contact} </Link> </Grid>
+            <Grid  item><Link className={classes.linkItem} to="escape-room/">{translate.mainPage}</Link></Grid>
+            <Grid  item><Link className={classes.linkItem} to="escape-room/szobak">{translate.rooms}</Link></Grid>
+            <Grid  item> <Link className={classes.linkItem} to="escape-room/foglalas"> {translate.booking} </Link> </Grid>
+            <Grid  item> <Link className={classes.linkItem} to="escape-room/kapcsolat"> {translate.contact} </Link> </Grid>
         </Grid>
-
     );
 };
 

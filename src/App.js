@@ -5,18 +5,19 @@ import { Route, Routes} from 'react-router-dom';
 import MainPage from './Components/Pages/MainPage/MainPage';
 import NotFound from './Components/Pages/NotFound/NotFound';
 import RoomsPage from './Components/Pages/RoomsPage/RoomsPage';
+import Header from './Components/Header/Header';
+import "./public/css/App.css";
+import "./public/css/style.css";
 
-
-const host = window.location.host;
-console.log(host);
 function App() {
   return (
     <React.Fragment>
       <Nav />
+      <Header />
       <Routes>
-        <Route path={`${host}/`} element={<MainPage/>} />
-        <Route path={`${host}/szobak`} element={<RoomsPage/>} />
-        <Route path={`${host}/szobak/:room_name`} element={<BookingPage/>} />
+        <Route path="/escape-room/" element={<MainPage/>} />
+        <Route path="escape-room/szobak" element={<RoomsPage/>} />
+        <Route path="escape-room/szobak/:room_name" element={<BookingPage/>} />
         <Route element={NotFound} />
       </Routes>
     </React.Fragment>

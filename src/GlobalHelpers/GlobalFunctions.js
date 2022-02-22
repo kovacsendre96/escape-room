@@ -1,9 +1,10 @@
+import currentWeekNumber from "current-week-number";
 import { translate } from "./Lang/Lang";
+const JSJoda = require('js-joda');
+const LocalDate = JSJoda.LocalDate;
 
 export const readRoomName = (roomName) => {
-
     return translate[roomName];
-
 };
 
 export const setRoomIdByRoomName = (room_name) => {
@@ -15,6 +16,8 @@ export const setRoomIdByRoomName = (room_name) => {
             break;
         case 'szoba-3': roomId = '-Mp1WF1YL7dOnZUkm24h';
             break;
+        default:
+            roomId = '';
     }
     return (
         roomId
@@ -34,8 +37,34 @@ export const INPUT_TYPE = {
 };
 
 export const getCurrentWeekNumber = () => {
-    const today = new Date();
-    const firstDayOfYear = new Date(today.getFullYear(), 0, 1);
-    const pastDaysOfYear = (today.valueOf() - firstDayOfYear.valueOf()) / 86400000;
-    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7) -2;
+    return currentWeekNumber() - 1;
+};
+
+
+export const isDisabledTime = (roomTime, roomDateFormat) => {
+    function dateCorrection(number) {
+        let newNumber = number;
+        if (newNumber < 10) {
+            newNumber = `0${newNumber}`
+        }
+        return newNumber;
+    };
+    const date = new Date();
+
+    const todayFormat = `${date.getFullYear()}-${dateCorrection(date.getMonth() + 1)}-${dateCorrection(date.getDate())}`;
+    function getNumberOfDays(start, end) {
+        const start_date = new LocalDate.parse(start);
+        const end_date = new LocalDate.parse(end);
+
+        return JSJoda.ChronoUnit.DAYS.between(start_date, end_date);
+    };
+    if (getNumberOfDays(todayFormat, roomDateFormat) < 0) {
+        return true;
+    }
+    else if (getNumberOfDays(todayFormat, roomDateFormat) === 0 && parseInt(roomTime) <= date.getHours()) {
+        return true;
+    }
+    else {
+        return false;
+    }
 };

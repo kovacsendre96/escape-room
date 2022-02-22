@@ -73,7 +73,7 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
             })
         }
         if (changeType === INPUT_TYPE.EMAIL) {
-            const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            const mailformat = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
             if (targetValue.match(mailformat)) {
 
                 setErrors({
@@ -89,7 +89,7 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
             }
         }
         if (changeType === INPUT_TYPE.PHONE) {
-            const phoneFormat = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+            const phoneFormat = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/im
             if (targetValue.match(phoneFormat)) {
                 setErrors({
                     ...errors,
@@ -226,6 +226,7 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
                     value={groupNumber}
                     onChange={handleSelectChange}
                     onBlur={(e) => handleBlur(e, INPUT_TYPE.GROUP_NUMBER, setGroupNumber,)}
+
                 >
                     {generateMenuItem()}
 
