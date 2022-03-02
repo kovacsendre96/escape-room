@@ -10,14 +10,15 @@ import "./public/css/App.css";
 import "./public/css/style.css";
 
 function App() {
+  const api = window.location.host
   return (
     <React.Fragment>
       <Nav />
       <Header />
       <Routes>
-        <Route path="/escape-room/" element={<MainPage/>} />
-        <Route path="/escape-room/szobak" element={<RoomsPage/>} />
-        <Route path="/escape-room/szobak/:room_name" element={<BookingPage/>} />
+        <Route path={`/escape-room`} element={<MainPage/>} />
+        <Route path={`/escape-room/szobak`} element={<RoomsPage/>} />
+        <Route path={`/escape-room/szobak/:room_name`} element={<BookingPage/>}/>
         <Route element={NotFound} />
       </Routes>
     </React.Fragment>

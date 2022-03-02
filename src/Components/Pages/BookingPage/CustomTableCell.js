@@ -6,7 +6,7 @@ import { clickedTimeData } from './BookingFromFunctions';
 
 const useStyles = makeStyles({
     tableCell: {
-        border: '2px solid white',
+        border: '2px solid grey',
         padding: 20
     },
     reserved: {
@@ -17,6 +17,10 @@ const useStyles = makeStyles({
         cursor: 'pointer',
         background: '#90EE90'
     },
+    disabled:{
+        cursor: "not-allowed",
+        visibility:'hidden'
+    }
 });
 
 const CustomTableCell = ({ response,index,setOpenModal,rowIndex,roomId }) => {
@@ -38,7 +42,7 @@ const CustomTableCell = ({ response,index,setOpenModal,rowIndex,roomId }) => {
             <TableCell
                 onClick={handleClick}
                 key={`table-body-cell-${response.date}`}
-                className={`${classes.tableCell} ${response.dayTimes[index].reserved || isDisabledRoom ? classes.reserved : classes.free}`}
+                className={`${classes.tableCell} ${response.dayTimes[index].reserved ? classes.reserved : classes.free } ${isDisabledRoom? classes.disabled:''}`}
             >
                 {response.dayTimes[index].time}
             </TableCell>
