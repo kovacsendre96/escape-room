@@ -22,6 +22,20 @@ export const getRoomCapacity = ({id, setState, roomId}) => {
     return response;
 };
 
+// export const getRoomImg = (setState, roomId) => {
+//     const response = api.get(`/users/-MoUTkg1gdkGpPFivBxy/rooms/${roomId}/room_img.json`).then((res) => {
+//         setState(res.data);
+//     });
+//     return response;
+// };
+//
+// export const getRoomName = (setState, roomId) => {
+//     const response = api.get(`/users/-MoUTkg1gdkGpPFivBxy/rooms/${roomId}/room_name.json`).then((res) => {
+//         setState(res.data);
+//     });
+//     return response;
+// };
+
 export const bookRoom = ({ id, roomId, weekNumber, dayNumber, timeNumber, time, reserved, setIsSentBook, isSentBook }) => {
     api.put(`/users/${id}/rooms/${roomId}/weeks/${weekNumber}/days/${dayNumber}/times/${timeNumber}.json`, { time: time, reserved: reserved }).then((res) => {
         if (res.status === 200) {

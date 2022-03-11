@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 const RoomsPage = () => {
 const api = window.location.host;
-console.log(api);
     return (
         <Grid container direction={'column'}>
             <Grid><Link to={`/escape-room/szobak/fogsagban`}>SZOBA 1</Link></Grid>

@@ -7,14 +7,20 @@ export const readRoomName = (roomName) => {
     return translate[roomName];
 };
 
-export const setRoomIdByRoomName = (room_name) => {
+export const ROOM_NAMES = {
+    FOGSAGBAN: 'fogsagban',
+    SZOBA_2 : 'szoba-2',
+    SZOBA_3 : 'szoba-3',
+};
+
+export const getRoomIdByRoomName = (room_name) => {
     let roomId;
     switch (room_name) {
-        case 'fogsagban': roomId = '-Mp1W6hGMvV79dDM-K8U';
+        case ROOM_NAMES.FOGSAGBAN: roomId = '-Mp1W6hGMvV79dDM-K8U';
             break;
-        case 'szoba-2': roomId = '-Mp1WBHtwPG0NRkGTONd';
+        case ROOM_NAMES.SZOBA_2: roomId = '-Mp1WBHtwPG0NRkGTONd';
             break;
-        case 'szoba-3': roomId = '-Mp1WF1YL7dOnZUkm24h';
+        case ROOM_NAMES.SZOBA_3: roomId = '-Mp1WF1YL7dOnZUkm24h';
             break;
         default:
             roomId = '';
@@ -61,10 +67,14 @@ export const isDisabledTime = (roomTime, roomDateFormat) => {
     if (getNumberOfDays(todayFormat, roomDateFormat) < 0) {
         return true;
     }
-    else if (getNumberOfDays(todayFormat, roomDateFormat) === 0 && parseInt(roomTime) <= date.getHours()) {
-        return true;
-    }
-    else {
-        return false;
-    }
+    else return getNumberOfDays(todayFormat, roomDateFormat) === 0 && parseInt(roomTime) <= date.getHours();
 };
+
+export function isExist(x) {
+    return typeof (x) !== 'undefined';
+};
+
+export function isDefined(x) {
+    return Boolean(isExist(x) && (x !== null));
+};
+
