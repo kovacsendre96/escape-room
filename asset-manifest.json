@@ -1,21 +1,17 @@
 {
   "files": {
-    "main.css": "/escape-room/static/css/main.dbcb77dd.chunk.css",
-    "main.js": "/escape-room/static/js/main.124a520a.chunk.js",
-    "main.js.map": "/escape-room/static/js/main.124a520a.chunk.js.map",
+    "main.js": "/escape-room/static/js/main.100ea969.chunk.js",
+    "main.js.map": "/escape-room/static/js/main.100ea969.chunk.js.map",
     "runtime-main.js": "/escape-room/static/js/runtime-main.5c301169.js",
     "runtime-main.js.map": "/escape-room/static/js/runtime-main.5c301169.js.map",
-    "static/js/2.55e2025c.chunk.js": "/escape-room/static/js/2.55e2025c.chunk.js",
-    "static/js/2.55e2025c.chunk.js.map": "/escape-room/static/js/2.55e2025c.chunk.js.map",
+    "static/js/2.97cae9ed.chunk.js": "/escape-room/static/js/2.97cae9ed.chunk.js",
+    "static/js/2.97cae9ed.chunk.js.map": "/escape-room/static/js/2.97cae9ed.chunk.js.map",
     "index.html": "/escape-room/index.html",
-    "static/css/main.dbcb77dd.chunk.css.map": "/escape-room/static/css/main.dbcb77dd.chunk.css.map",
-    "static/js/2.55e2025c.chunk.js.LICENSE.txt": "/escape-room/static/js/2.55e2025c.chunk.js.LICENSE.txt",
-    "static/media/style.css": "/escape-room/static/media/How-to-design-an-escape-room-xzeBMoTOI-lg_1x.97bad8b8.jpg"
+    "static/js/2.97cae9ed.chunk.js.LICENSE.txt": "/escape-room/static/js/2.97cae9ed.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5c301169.js",
-    "static/js/2.55e2025c.chunk.js",
-    "static/css/main.dbcb77dd.chunk.css",
-    "static/js/main.124a520a.chunk.js"
+    "static/js/2.97cae9ed.chunk.js",
+    "static/js/main.100ea969.chunk.js"
   ]
 }
