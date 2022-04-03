@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.js": "/escape-room/static/js/main.100ea969.chunk.js",
-    "main.js.map": "/escape-room/static/js/main.100ea969.chunk.js.map",
+    "main.js": "/escape-room/static/js/main.e7a88631.chunk.js",
+    "main.js.map": "/escape-room/static/js/main.e7a88631.chunk.js.map",
     "runtime-main.js": "/escape-room/static/js/runtime-main.5c301169.js",
     "runtime-main.js.map": "/escape-room/static/js/runtime-main.5c301169.js.map",
-    "static/js/2.97cae9ed.chunk.js": "/escape-room/static/js/2.97cae9ed.chunk.js",
-    "static/js/2.97cae9ed.chunk.js.map": "/escape-room/static/js/2.97cae9ed.chunk.js.map",
+    "static/js/2.44e665f4.chunk.js": "/escape-room/static/js/2.44e665f4.chunk.js",
+    "static/js/2.44e665f4.chunk.js.map": "/escape-room/static/js/2.44e665f4.chunk.js.map",
     "index.html": "/escape-room/index.html",
-    "static/js/2.97cae9ed.chunk.js.LICENSE.txt": "/escape-room/static/js/2.97cae9ed.chunk.js.LICENSE.txt"
+    "static/js/2.44e665f4.chunk.js.LICENSE.txt": "/escape-room/static/js/2.44e665f4.chunk.js.LICENSE.txt",
+    "static/media/header-walpapper-img.78514e5e.jpg": "/escape-room/static/media/header-walpapper-img.78514e5e.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.5c301169.js",
-    "static/js/2.97cae9ed.chunk.js",
-    "static/js/main.100ea969.chunk.js"
+    "static/js/2.44e665f4.chunk.js",
+    "static/js/main.e7a88631.chunk.js"
   ]
 }
