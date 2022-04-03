@@ -71,7 +71,7 @@ const BookingPage = () => {
     }, [activeStep]);
 
     return (
-        <Grid container justifyContent={'center'} alignItems={'center'}>
+        <Grid container justifyContent={'center'} alignItems={'center'} direction="column">
             <div className={classes.root}>
                 <Paper square elevation={0} className={classes.header}>
                     <Typography>{roomData[activeStep].label}</Typography>
@@ -108,10 +108,10 @@ const BookingPage = () => {
                         </Button>
                     }
                 />
+            </div>
                 <BookingTableComponent
                     roomNameFromBookingPage={roomName}
                 />
-            </div>
         </Grid>
     );
 };

@@ -12,6 +12,7 @@ import {
     readRoomName, ROOM_NAMES,
     getRoomIdByRoomName
 } from "../../../GlobalHelpers/GlobalFunctions";
+import Loader from "../../Loader";
 
 
 
@@ -78,7 +79,7 @@ const BookingTableComponent = ({roomNameFromBookingPage}) => {
     /*============================ RENDER /*============================*/
     return (
         loading
-            ? <h1>Loading...</h1>
+            ? <Loader />
             :
             <Grid container justifyContent={'center'} alignItems={'center'} direction={'column'}>
                 <Typography variant={"h4"}>{readRoomName(room_name)}</Typography>

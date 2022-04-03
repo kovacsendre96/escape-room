@@ -1,5 +1,6 @@
 import currentWeekNumber from "current-week-number";
-import { translate } from "./Lang/Lang";
+import {translate} from "./Lang/Lang";
+
 const JSJoda = require('js-joda');
 const LocalDate = JSJoda.LocalDate;
 
@@ -9,18 +10,21 @@ export const readRoomName = (roomName) => {
 
 export const ROOM_NAMES = {
     FOGSAGBAN: 'fogsagban',
-    SZOBA_2 : 'szoba-2',
-    SZOBA_3 : 'szoba-3',
+    SZOBA_2: 'szoba-2',
+    SZOBA_3: 'szoba-3',
 };
 
 export const getRoomIdByRoomName = (room_name) => {
     let roomId;
     switch (room_name) {
-        case ROOM_NAMES.FOGSAGBAN: roomId = '-Mp1W6hGMvV79dDM-K8U';
+        case ROOM_NAMES.FOGSAGBAN:
+            roomId = '-Mp1W6hGMvV79dDM-K8U';
             break;
-        case ROOM_NAMES.SZOBA_2: roomId = '-Mp1WBHtwPG0NRkGTONd';
+        case ROOM_NAMES.SZOBA_2:
+            roomId = '-Mp1WBHtwPG0NRkGTONd';
             break;
-        case ROOM_NAMES.SZOBA_3: roomId = '-Mp1WF1YL7dOnZUkm24h';
+        case ROOM_NAMES.SZOBA_3:
+            roomId = '-Mp1WF1YL7dOnZUkm24h';
             break;
         default:
             roomId = '';
@@ -58,6 +62,7 @@ export const isDisabledTime = (roomTime, roomDateFormat) => {
     const date = new Date();
 
     const todayFormat = `${date.getFullYear()}-${dateCorrection(date.getMonth() + 1)}-${dateCorrection(date.getDate())}`;
+
     function getNumberOfDays(start, end) {
         const start_date = new LocalDate.parse(start);
         const end_date = new LocalDate.parse(end);
@@ -66,8 +71,7 @@ export const isDisabledTime = (roomTime, roomDateFormat) => {
     };
     if (getNumberOfDays(todayFormat, roomDateFormat) < 0) {
         return true;
-    }
-    else return getNumberOfDays(todayFormat, roomDateFormat) === 0 && parseInt(roomTime) <= date.getHours();
+    } else return getNumberOfDays(todayFormat, roomDateFormat) === 0 && parseInt(roomTime) <= date.getHours();
 };
 
 export function isExist(x) {
@@ -78,3 +82,7 @@ export function isDefined(x) {
     return Boolean(isExist(x) && (x !== null));
 };
 
+export const FORM_TYPE = {
+    BOOKING_FORM: 'booking_form',
+    SEND_MAIL_FORM: 'send_mail_form'
+}

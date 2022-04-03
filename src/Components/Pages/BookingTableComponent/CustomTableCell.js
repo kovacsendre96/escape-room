@@ -6,7 +6,7 @@ import { clickedTimeData } from './BookingFromFunctions';
 
 const useStyles = makeStyles({
     tableCell: {
-        border: '2px solid grey',
+        border: '2px solid white',
         padding: 20
     },
     reserved: {
@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
     disabled:{
         cursor: "not-allowed",
-        visibility:'hidden'
+        background: 'gray'
     }
 });
 

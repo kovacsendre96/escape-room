@@ -1,0 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
+a:hover{
+    text-decoration: none;
+}
+a{
+    text-decoration: none;
+}

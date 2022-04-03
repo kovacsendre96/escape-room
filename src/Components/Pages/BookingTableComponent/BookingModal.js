@@ -6,6 +6,7 @@ import Fade from '@material-ui/core/Fade';
 import BookingForm from './BookingForm';
 import { Grid } from '@material-ui/core';
 import { clickedTimeData } from './BookingFromFunctions';
+import {FORM_TYPE} from "../../../GlobalHelpers/GlobalFunctions";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -48,6 +49,7 @@ const BookingModal = ({ openModal, setOpenModal, roomCapacity }) => {
           <BookingForm
             handleClose={handleClose}
             roomCapacity={roomCapacity}
+            formType={FORM_TYPE.BOOKING_FORM}
           />
         </div>
       </Fade>

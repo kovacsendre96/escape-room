@@ -1,20 +1,23 @@
-import { Button, FormHelperText, makeStyles, TextField } from "@material-ui/core";
-import React, { useContext, useState } from "react";
-import { translate } from "../../../GlobalHelpers/Lang/Lang";
+import {Button, FormHelperText, makeStyles, TextField} from "@material-ui/core";
+import React, {useContext, useEffect, useState} from "react";
+import {translate} from "../../../GlobalHelpers/Lang/Lang";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { BookingContext } from "./BookingTableComponent";
-import { bookRoom, sendReservationsData } from "../../../GlobalHelpers/Api/ApiFunctions";
-import { clickedTimeData } from "./BookingFromFunctions";
-import { INPUT_TYPE } from "../../../GlobalHelpers/GlobalFunctions";
+import {BookingContext} from "./BookingTableComponent";
+import {bookRoom, sendReservationsData} from "../../../GlobalHelpers/Api/ApiFunctions";
+import {clickedTimeData} from "./BookingFromFunctions";
+import {FORM_TYPE, INPUT_TYPE} from "../../../GlobalHelpers/GlobalFunctions";
 
 const useStyles = makeStyles(theme => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
-        width: 500,
+        justifyContent:'space-between',
+        width: '100%',
+        background: 'white',
+        height: '100%'
 
     },
     input: {
@@ -42,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const BookingForm = ({ handleClose,roomCapacity }) => {
+const BookingForm = ({handleClose, roomCapacity, formType}) => {
     const classes = useStyles();
     const ctx = useContext(BookingContext);
     const [groupNumber, setGroupNumber] = useState('');
@@ -56,8 +59,9 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
     const [email, setEmail] = useState(null);
     const [phone, setPhone] = useState(null);
     const [message, setMessage] = useState(null);
+    const [formIsInvalid, setFormIsInvalid] = useState(true);
 
-    const handleBlur = (e, changeType, setFunction) => {    
+    const handleBlur = (e, changeType, setFunction) => {
         const targetValue = e.target.value;
         setFunction(targetValue);
 
@@ -124,7 +128,7 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
 
     const generateMenuItem = () => {
         const menuItem = [];
-        for (let i = 1; i < roomCapacity+1; i++) {
+        for (let i = 1; i < roomCapacity + 1; i++) {
             menuItem.push(
                 <MenuItem key={i} value={i}>{i}</MenuItem>
             );
@@ -132,12 +136,19 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
         return menuItem;
     };
 
-    const isInvalidForm = () => {
-        return errors.name !== "" || errors.email !== "" || errors.phone !== "" || errors.group_number !== "";
-    };
+    useEffect(() => {
+        if (name !== "" && email !== "" && phone !== "" && groupNumber !== "") {
+            setFormIsInvalid(false);
+        }
+
+        if (errors.name !== "" || errors.email !== "" || errors.phone !== "" || errors.group_number !== "") {
+            setFormIsInvalid(true);
+        }
+    }, [name, email, phone, groupNumber]);
+
 
     const submitBook = (e) => {
-        if (!isInvalidForm()) {
+        if (!formIsInvalid) {
             e.preventDefault();
             const sendData = {
                 id: ctx.id,
@@ -178,7 +189,7 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
                 helperText={errors?.name}
                 required
                 inputProps={
-                    { maxLength: 255 }
+                    {maxLength: 255}
                 }
                 error={Boolean(errors?.name)}
                 onBlur={(e) => handleBlur(e, INPUT_TYPE.NAME, setName,)}
@@ -214,26 +225,29 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
                 onChange={(e) => handleBlur(e, INPUT_TYPE.PHONE, setName,)}
 
             />
-            <FormControl required variant="outlined" className={classes.formControl} key="form-control" error={errors?.group_number !== ''}>
-                <InputLabel id="group-number" key="group-number">{translate.groupNumber}</InputLabel>
-                <Select
-                    labelId="group-number"
-                    label={translate.groupNumber}
-                    id="group-number-select"
-                    key="group-number-select"
-                    value={groupNumber}
-                    onChange={handleSelectChange}
-                    onBlur={(e) => handleBlur(e, INPUT_TYPE.GROUP_NUMBER, setGroupNumber,)}
+            {formType === FORM_TYPE.BOOKING_FORM &&
+                <FormControl required variant="outlined" className={classes.formControl} key="form-control"
+                             error={errors?.group_number !== ''}>
+                    <InputLabel id="group-number" key="group-number">{translate.groupNumber}</InputLabel>
+                    <Select
+                        labelId="group-number"
+                        label={translate.groupNumber}
+                        id="group-number-select"
+                        key="group-number-select"
+                        value={groupNumber}
+                        onChange={handleSelectChange}
+                        onBlur={(e) => handleBlur(e, INPUT_TYPE.GROUP_NUMBER, setGroupNumber,)}
 
-                >
-                    {generateMenuItem()}
+                    >
+                        {generateMenuItem()}
 
-                </Select>
-                <FormHelperText>{errors?.group_number} </FormHelperText>
-            </FormControl>
+                    </Select>
+                    <FormHelperText>{errors?.group_number} </FormHelperText>
+                </FormControl>
+            }
 
 
-            <FormControl fullWidth variant="outlined"  className={classes.input}>
+            <FormControl fullWidth variant="outlined" className={classes.input}>
                 <TextField
                     id="message"
                     key="message"
@@ -248,7 +262,8 @@ const BookingForm = ({ handleClose,roomCapacity }) => {
                 />
             </FormControl>
 
-            <Button disabled={isInvalidForm()} key={"button"} type={"submit"} variant="contained" color="primary" className={`${classes.button} ${classes.input}`}>
+            <Button disabled={formIsInvalid} key={"button"} type={"submit"} variant="contained" color="primary"
+                    className={`${classes.button} ${classes.input}`}>
                 {translate.booking}
             </Button>
         </form>
