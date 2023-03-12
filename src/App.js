@@ -13,7 +13,6 @@ import Footer from "./Components/FixedSections/Footer";
 
 
 function App() {
-    const api = window.location.host;
     return (
         <React.Fragment>
             <Nav/>
